@@ -1,23 +1,49 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [results, setResults] = useState([]);
+
+  const getFizzBuzz = () => {
+    const fizzBuzzResults = [];
+    for (let i = 1; i <= 100; i++) {
+      let result = '';
+      if (i % 3 === 0 || i.toString().includes('3')) {
+        result += 'Fizz';
+      }
+      if (i % 5 === 0 || i.toString().includes('5')) {
+        result += 'Buzz';
+      }
+      if (result === '') {
+        result = i.toString();
+      }
+      fizzBuzzResults.push(result);
+    }
+    return fizzBuzzResults;
+  };
+
+  const startFizzBuzz = () => {
+    const results = getFizzBuzz();
+    setResults(results);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="header">
+        <h1 className="title">FizzBuzz Application</h1>
       </header>
+      <div className="content">
+        <button className="start-button" onClick={startFizzBuzz}>
+          Start FizzBuzz
+        </button>
+        <div className="results">
+          {results.map((result, index) => (
+            <div className="result" key={index}>
+              {result}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
